@@ -24,8 +24,8 @@ jobs:
           fi
           
           echo "STUDENT_NAME=${STUDENT_NAME}" >> $GITHUB_ENV
-          mkdir -p /tmp/env-backups/${STUDENT_NAME}
-          echo "BACKUP_DIR=/tmp/env-backups/${STUDENT_NAME}" >> $GITHUB_ENV
+          mkdir -p /tmp/${STUDENT_NAME}-env-backups
+          echo "BACKUP_DIR=/tmp/${STUDENT_NAME}-env-backups" >> $GITHUB_ENV
 
           # 🟢 ขั้นตอนแก้ไข: ล้างสิทธิ์ไฟล์เก่าก่อน Checkout (เพื่อแก้ Error ใน image_f261e3.png)
       - name: Pre-cleanup Permissions
