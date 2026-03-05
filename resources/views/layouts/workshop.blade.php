@@ -34,7 +34,7 @@
             <div class="flex items-center gap-4">
                 @auth
                     <a href="{{ route('dashboard') }}" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm font-medium transition-all duration-300 transform hover:-translate-y-0.5 text-slate-200 shadow-lg" wire:navigate>
-                        ระบบจัดการ (Admin)
+                        {{ auth()->user()->is_admin ? 'ระบบจัดการ (Admin)' : 'เวิร์กชอปของฉัน' }}
                     </a>
                 @else
                     <a href="{{ route('login') }}" class="px-6 py-2.5 rounded-xl bg-white text-slate-900 hover:bg-slate-200 text-sm font-bold shadow-lg shadow-white/10 transition-all duration-300 transform hover:-translate-y-0.5" wire:navigate>

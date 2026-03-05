@@ -10,9 +10,18 @@
             <x-app-logo href="{{ route('dashboard') }}" wire:navigate />
 
             <flux:navbar class="-mb-px max-lg:hidden">
-                <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                    {{ __('Dashboard') }}
-                </flux:navbar.item>
+                @if(auth()->check() && auth()->user()->is_admin)
+                    <flux:navbar.item icon="home" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate>
+                        {{ __('Dashboard') }}
+                    </flux:navbar.item>
+                    <flux:navbar.item icon="book-open" :href="route('admin.workshops.index')" :current="request()->routeIs('admin.workshops.*')" wire:navigate>
+                        จัดการเวิร์กชอป
+                    </flux:navbar.item>
+                @else
+                    <flux:navbar.item icon="book-open" :href="route('student.my-workshops')" :current="request()->routeIs('student.my-workshops')" wire:navigate>
+                        เวิร์กชอปของฉัน
+                    </flux:navbar.item>
+                @endif
             </flux:navbar>
 
             <flux:spacer />
@@ -53,9 +62,18 @@
 
             <flux:sidebar.nav>
                 <flux:sidebar.group :heading="__('Platform')">
-                    <flux:sidebar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard')  }}
-                    </flux:sidebar.item>
+                    @if(auth()->check() && auth()->user()->is_admin)
+                        <flux:sidebar.item icon="home" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate>
+                            {{ __('Dashboard') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="book-open" :href="route('admin.workshops.index')" :current="request()->routeIs('admin.workshops.*')" wire:navigate>
+                            จัดการเวิร์กชอป
+                        </flux:sidebar.item>
+                    @else
+                        <flux:sidebar.item icon="book-open" :href="route('student.my-workshops')" :current="request()->routeIs('student.my-workshops')" wire:navigate>
+                            เวิร์กชอปของฉัน
+                        </flux:sidebar.item>
+                    @endif
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 

@@ -23,11 +23,29 @@ class WorkshopRegistration extends Component
     public function mount(Workshop $workshop)
     {
         $this->workshop = $workshop;
+        
+        if (auth()->check()) {
+            $user = auth()->user();
+            $this->student_id = $user->student_id ?? '';
+            $this->student_name = $user->name ?? '';
+        }
     }
 
     public function save()
     {
+        // Require login
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
         $this->validate();
+
+        // 0. ตรวจสอบโควตา (ห้ามเกิน 3 หัวข้อ)
+        $userRegistrationsCount = auth()->user()->registrations()->count();
+        if ($userRegistrationsCount >= 3) {
+            $this->errorMessage = 'ขออภัย คุณไม่สามารถลงทะเบียนได้เนื่องจากคุณลงทะเบียนครบกำหนด 3 หัวข้อแล้ว';
+            return;
+        }
 
         // 1. ตรวจสอบที่นั่งว่าง
         if ($this->workshop->isFull()) {
@@ -37,7 +55,7 @@ class WorkshopRegistration extends Component
 
         // 2. ตรวจสอบการลงทะเบียนซ้ำ
         $exists = Registration::where('workshop_id', $this->workshop->id)
-            ->where('student_id', $this->student_id)
+            ->where('user_id', auth()->id())
             ->exists();
 
         if ($exists) {
@@ -54,7 +72,6 @@ class WorkshopRegistration extends Component
         ]);
 
         $this->successMessage = 'ลงทะเบียนสำเร็จ! แล้วพบกันในวันงานนะครับ';
-        $this->reset(['student_id', 'student_name']);
         
         // Refresh workshop data to update count
         $this->workshop->load('registrations');

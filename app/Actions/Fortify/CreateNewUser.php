@@ -21,6 +21,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             ...$this->profileRules(),
+            'student_id' => ['nullable', 'string', 'max:20'],
             'password' => $this->passwordRules(),
         ])->validate();
 
@@ -28,6 +29,7 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => $input['password'],
+            'student_id' => $input['student_id'] ?? null,
         ]);
     }
 }

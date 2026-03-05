@@ -19,6 +19,15 @@
                 :placeholder="__('Full name')"
             />
 
+            <!-- Student ID -->
+            <flux:input
+                name="student_id"
+                label="รหัสนักศึกษา (สำหรับนักศึกษา)"
+                :value="old('student_id')"
+                type="text"
+                placeholder="เช่น 66123456"
+            />
+
             <!-- Email Address -->
             <flux:input
                 name="email"

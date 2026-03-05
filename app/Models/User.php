@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'student_id',
+        'is_admin',
     ];
 
     /**
@@ -47,7 +49,16 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
+    }
+
+    /**
+     * Get the registrations for the user.
+     */
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
     }
 
     /**

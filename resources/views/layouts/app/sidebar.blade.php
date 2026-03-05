@@ -12,12 +12,18 @@
 
             <flux:sidebar.nav>
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </flux:sidebar.item>
-                    <flux:sidebar.item icon="book-open" :href="route('admin.workshops.index')" :current="request()->routeIs('admin.workshops.*')" wire:navigate>
-                        จัดการเวิร์กชอป
-                    </flux:sidebar.item>
+                    @if(auth()->check() && auth()->user()->is_admin)
+                        <flux:sidebar.item icon="home" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate>
+                            {{ __('Dashboard') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="book-open" :href="route('admin.workshops.index')" :current="request()->routeIs('admin.workshops.*')" wire:navigate>
+                            จัดการเวิร์กชอป
+                        </flux:sidebar.item>
+                    @else
+                        <flux:sidebar.item icon="book-open" :href="route('student.my-workshops')" :current="request()->routeIs('student.my-workshops')" wire:navigate>
+                            เวิร์กชอปของฉัน
+                        </flux:sidebar.item>
+                    @endif
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 

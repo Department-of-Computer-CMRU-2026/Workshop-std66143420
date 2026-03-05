@@ -53,18 +53,20 @@
                 </div>
             @endif
 
+            @auth
             <form wire:submit="save" class="space-y-6">
-                <div class="space-y-2">
-                    <label class="block text-sm font-bold text-slate-300 ml-1">รหัสนักศึกษา</label>
-                    <input type="text" wire:model="student_id" placeholder="ตัวอย่าง: 66123456" 
-                           class="w-full bg-slate-900/50 border border-slate-700 rounded-2xl py-4 px-6 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all placeholder:text-slate-600">
+                <!-- Data from user profile, read-only -->
+                <div class="space-y-2 opacity-70">
+                    <label class="block text-sm font-bold text-slate-300 ml-1">รหัสนักศึกษา (อ้างอิงจากบัญชีผู้ใช้)</label>
+                    <input type="text" wire:model="student_id" readonly
+                           class="w-full bg-slate-900/40 border border-slate-700/50 rounded-2xl py-4 px-6 text-slate-400 cursor-not-allowed focus:outline-none">
                     @error('student_id') <span class="text-rose-400 text-xs ml-1">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="space-y-2">
-                    <label class="block text-sm font-bold text-slate-300 ml-1">ชื่อ-นามสกุล</label>
-                    <input type="text" wire:model="student_name" placeholder="ระบุชื่อจริงและนามสกุล" 
-                           class="w-full bg-slate-900/50 border border-slate-700 rounded-2xl py-4 px-6 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all placeholder:text-slate-600">
+                <div class="space-y-2 opacity-70">
+                    <label class="block text-sm font-bold text-slate-300 ml-1">ชื่อ-นามสกุล (อ้างอิงจากบัญชีผู้ใช้)</label>
+                    <input type="text" wire:model="student_name" readonly
+                           class="w-full bg-slate-900/40 border border-slate-700/50 rounded-2xl py-4 px-6 text-slate-400 cursor-not-allowed focus:outline-none">
                     @error('student_name') <span class="text-rose-400 text-xs ml-1">{{ $message }}</span> @enderror
                 </div>
 
@@ -83,6 +85,25 @@
                     </div>
                 </div>
             </form>
+            @else
+            <div class="py-10 px-6 text-center bg-slate-900/40 rounded-3xl border border-slate-700/50 shadow-inner">
+                <div class="w-16 h-16 bg-blue-500/10 text-blue-400 rounded-full flex items-center justify-center mx-auto mb-5 border border-blue-500/20">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3">เข้าสู่ระบบเพื่อลงทะเบียน</h3>
+                <p class="text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed">กรุณาเข้าสู่ระบบก่อนทำการลงทะเบียน เพื่อให้ระบบจำกัดสิทธิ์ได้อย่างถูกต้อง (1 คนลงได้ 3 หัวข้อ)</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{{ route('login') }}" class="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 transition-all duration-300 transform hover:-translate-y-1">
+                        เข้าสู่ระบบ
+                    </a>
+                    <a href="{{ route('register') }}" class="inline-flex items-center justify-center px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        สมัครสมาชิก
+                    </a>
+                </div>
+            </div>
+            @endauth
         </div>
     </div>
 </div>
