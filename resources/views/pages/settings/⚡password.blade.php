@@ -45,40 +45,45 @@ new #[Title('Password settings')] class extends Component {
     <flux:heading class="sr-only">{{ __('Password settings') }}</flux:heading>
 
     <x-pages::settings.layout :heading="__('Update password')" :subheading="__('Ensure your account is using a long, random password to stay secure')">
-        <form method="POST" wire:submit="updatePassword" class="mt-6 space-y-6">
-            <flux:input
-                wire:model="current_password"
-                :label="__('Current password')"
-                type="password"
-                required
-                autocomplete="current-password"
-            />
-            <flux:input
-                wire:model="password"
-                :label="__('New password')"
-                type="password"
-                required
-                autocomplete="new-password"
-            />
-            <flux:input
-                wire:model="password_confirmation"
-                :label="__('Confirm password')"
-                type="password"
-                required
-                autocomplete="new-password"
-            />
+        <div class="bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl p-6 shadow-sm">
+            <form method="POST" wire:submit="updatePassword" class="space-y-6">
+                <flux:input
+                    wire:model="current_password"
+                    :label="__('Current password')"
+                    type="password"
+                    required
+                    autocomplete="current-password"
+                />
+                
+                <flux:separator variant="subtle" />
 
-            <div class="flex items-center gap-4">
-                <div class="flex items-center justify-end">
-                    <flux:button variant="primary" type="submit" class="w-full" data-test="update-password-button">
-                        {{ __('Save') }}
-                    </flux:button>
+                <flux:input
+                    wire:model="password"
+                    :label="__('New password')"
+                    type="password"
+                    required
+                    autocomplete="new-password"
+                />
+                <flux:input
+                    wire:model="password_confirmation"
+                    :label="__('Confirm password')"
+                    type="password"
+                    required
+                    autocomplete="new-password"
+                />
+
+                <div class="flex items-center gap-4 pt-4 border-t border-slate-200 dark:border-slate-700/50">
+                    <div class="flex items-center justify-end w-full sm:w-auto">
+                        <flux:button variant="primary" type="submit" class="w-full sm:w-auto px-6" data-test="update-password-button">
+                            {{ __('Save Password') }}
+                        </flux:button>
+                    </div>
+
+                    <x-action-message class="me-3" on="password-updated">
+                        {{ __('Saved successfully.') }}
+                    </x-action-message>
                 </div>
-
-                <x-action-message class="me-3" on="password-updated">
-                    {{ __('Saved.') }}
-                </x-action-message>
-            </div>
-        </form>
+            </form>
+        </div>
     </x-pages::settings.layout>
 </section>

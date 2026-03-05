@@ -57,54 +57,64 @@ new #[Title('Two-factor authentication')] class extends Component {
         :heading="__('Two-factor authentication')"
         :subheading="__('Manage your two-factor authentication settings')"
     >
-        <div class="flex flex-col w-full mx-auto space-y-6 text-sm" wire:cloak>
-            @if ($twoFactorEnabled)
-                <div class="space-y-4">
-                    <div class="flex items-center gap-3">
-                        <flux:badge color="green">{{ __('Enabled') }}</flux:badge>
+        <div class="bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-2xl p-6 shadow-sm">
+            <div class="flex flex-col w-full mx-auto space-y-6 text-sm" wire:cloak>
+                @if ($twoFactorEnabled)
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400">
+                                <flux:icon.check-circle class="w-4 h-4 mr-1.5" /> {{ __('Enabled') }}
+                            </span>
+                        </div>
+
+                        <flux:text>
+                            {{ __('With two-factor authentication enabled, you will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.') }}
+                        </flux:text>
+
+                        <div class="pt-4 border-t border-slate-200 dark:border-slate-700/50">
+                            <livewire:pages::settings.two-factor.recovery-codes :$requiresConfirmation />
+                        </div>
+
+                        <div class="flex justify-start pt-4 border-t border-slate-200 dark:border-slate-700/50 mt-4">
+                            <flux:button
+                                variant="danger"
+                                icon="shield-exclamation"
+                                icon:variant="outline"
+                                wire:click="disable"
+                            >
+                                {{ __('Disable 2FA') }}
+                            </flux:button>
+                        </div>
                     </div>
+                @else
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-800 dark:bg-rose-500/10 dark:text-rose-400">
+                                <flux:icon.x-circle class="w-4 h-4 mr-1.5" /> {{ __('Disabled') }}
+                            </span>
+                        </div>
 
-                    <flux:text>
-                        {{ __('With two-factor authentication enabled, you will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.') }}
-                    </flux:text>
+                        <flux:text variant="subtle">
+                            {{ __('When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.') }}
+                        </flux:text>
 
-                    <livewire:pages::settings.two-factor.recovery-codes :$requiresConfirmation />
+                        <div class="pt-4 border-t border-slate-200 dark:border-slate-700/50 mt-4">
+                            <flux:modal.trigger name="two-factor-setup-modal">
+                                <flux:button
+                                    variant="primary"
+                                    icon="shield-check"
+                                    icon:variant="outline"
+                                    wire:click="$dispatch('start-two-factor-setup')"
+                                >
+                                    {{ __('Enable 2FA') }}
+                                </flux:button>
+                            </flux:modal.trigger>
+                        </div>
 
-                    <div class="flex justify-start">
-                        <flux:button
-                            variant="danger"
-                            icon="shield-exclamation"
-                            icon:variant="outline"
-                            wire:click="disable"
-                        >
-                            {{ __('Disable 2FA') }}
-                        </flux:button>
+                        <livewire:pages::settings.two-factor-setup-modal :requires-confirmation="$requiresConfirmation" />
                     </div>
-                </div>
-            @else
-                <div class="space-y-4">
-                    <div class="flex items-center gap-3">
-                        <flux:badge color="red">{{ __('Disabled') }}</flux:badge>
-                    </div>
-
-                    <flux:text variant="subtle">
-                        {{ __('When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.') }}
-                    </flux:text>
-
-                    <flux:modal.trigger name="two-factor-setup-modal">
-                        <flux:button
-                            variant="primary"
-                            icon="shield-check"
-                            icon:variant="outline"
-                            wire:click="$dispatch('start-two-factor-setup')"
-                        >
-                            {{ __('Enable 2FA') }}
-                        </flux:button>
-                    </flux:modal.trigger>
-
-                    <livewire:pages::settings.two-factor-setup-modal :requires-confirmation="$requiresConfirmation" />
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
     </x-pages::settings.layout>
 </section>

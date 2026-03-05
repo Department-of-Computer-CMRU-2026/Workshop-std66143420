@@ -51,6 +51,7 @@
             <flux:dropdown position="top" align="end">
                 <flux:profile
                     :initials="auth()->user()->initials()"
+                    :avatar="auth()->user()->student_id ? 'https://reg.cmru.ac.th/registrar/getstudentimageftp.asp?id=' . auth()->user()->student_id : null"
                     icon-trailing="chevron-down"
                 />
 
@@ -61,6 +62,7 @@
                                 <flux:avatar
                                     :name="auth()->user()->name"
                                     :initials="auth()->user()->initials()"
+                                    :src="auth()->user()->student_id ? 'https://reg.cmru.ac.th/registrar/getstudentimageftp.asp?id=' . auth()->user()->student_id : null"
                                 />
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">

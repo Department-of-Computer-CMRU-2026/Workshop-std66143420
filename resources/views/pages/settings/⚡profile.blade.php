@@ -81,6 +81,24 @@ new #[Title('Profile settings')] class extends Component {
     <flux:heading class="sr-only">{{ __('Profile settings') }}</flux:heading>
 
     <x-pages::settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
+        
+        @if (Auth::user()->student_id)
+            <div class="my-6 flex flex-col sm:flex-row items-center gap-6 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+                <div class="relative w-28 h-28 rounded-full overflow-hidden border-4 border-white dark:border-slate-700 shadow-md">
+                    <img src="https://reg.cmru.ac.th/registrar/getstudentimageftp.asp?id={{ Auth::user()->student_id }}" 
+                         alt="รูปประจำตัวนักศึกษา" 
+                         class="w-full h-full object-cover">
+                </div>
+                <div class="text-center sm:text-left">
+                    <flux:heading size="xl" class="font-bold text-slate-900 dark:text-white">{{ Auth::user()->name }}</flux:heading>
+                    <flux:subheading class="mt-1 flex items-center justify-center sm:justify-start gap-2">
+                        <flux:icon.identification class="w-4 h-4 text-slate-400" />
+                        รหัสนักศึกษา: <span class="font-medium text-slate-700 dark:text-slate-300">{{ Auth::user()->student_id }}</span>
+                    </flux:subheading>
+                </div>
+            </div>
+        @endif
+
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
 
