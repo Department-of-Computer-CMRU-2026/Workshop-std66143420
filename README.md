@@ -113,7 +113,6 @@ docker ps   # ดูสถานะ Container
 **Zismail (Zismaildev)** *Computer Science, Chiang Mai Rajabhat University*
 
 - **GitHub:** [@Zismaildev](https://github.com/Zismaildev)
-- **Portfolio:** [AureliaX Project](https://github.com/Zismaildev) 
 - **Skill Tree:** Full-stack Developer & Cybersecurity Enthusiast
 
 ---
