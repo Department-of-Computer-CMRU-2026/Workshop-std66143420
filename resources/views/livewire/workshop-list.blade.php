@@ -56,10 +56,16 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('workshop.register', $workshop->id) }}" 
-                       class="w-full py-4 rounded-2xl font-bold text-center transition-all duration-300 {{ $workshop->isFull() ? 'bg-slate-700 text-slate-400 cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white shadow-lg shadow-blue-500/25' }}">
-                        {{ $workshop->isFull() ? 'ที่นั่งเต็มแล้ว' : 'ลงทะเบียนเข้าร่วม' }}
-                    </a>
+                    @if($workshop->isFull())
+                        <div class="w-full py-4 rounded-2xl font-bold text-center bg-slate-700 text-slate-500 cursor-not-allowed">
+                            Closed
+                        </div>
+                    @else
+                        <a href="{{ route('workshop.register', $workshop->id) }}" 
+                           class="w-full inline-block py-4 rounded-2xl font-bold text-center transition-all duration-300 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white shadow-lg shadow-blue-500/25" wire:navigate>
+                            ลงทะเบียนเข้าร่วม
+                        </a>
+                    @endif
                 </div>
             @endforeach
         </div>

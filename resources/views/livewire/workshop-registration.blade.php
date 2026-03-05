@@ -71,12 +71,22 @@
                 </div>
 
                 <div class="pt-4">
-                    <button type="submit" 
-                            wire:loading.attr="disabled"
-                            class="w-full py-5 bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-white font-black text-xl rounded-2xl shadow-2xl shadow-blue-500/20 transition-all duration-300 transform hover:-translate-y-1 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
-                        <span wire:loading.remove>ยืนยันการลงทะเบียน</span>
-                        <span wire:loading>กำลังบันทึกข้อมูล...</span>
-                    </button>
+                    @if($workshop->isFull())
+                        <button type="button" disabled
+                                class="w-full py-5 bg-slate-700 text-slate-500 font-black text-xl rounded-2xl cursor-not-allowed border border-slate-600 flex items-center justify-center">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            Closed (ที่นั่งเต็มแล้ว)
+                        </button>
+                    @else
+                        <button type="submit" 
+                                wire:loading.attr="disabled"
+                                class="w-full py-5 bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-500 hover:to-emerald-400 text-white font-black text-xl rounded-2xl shadow-2xl shadow-blue-500/20 transition-all duration-300 transform hover:-translate-y-1 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <span wire:loading.remove>ยืนยันการลงทะเบียน</span>
+                            <span wire:loading>กำลังบันทึกข้อมูล...</span>
+                        </button>
+                    @endif
                     
                     <div class="mt-6 text-center">
                         <p class="text-xs text-slate-500">
