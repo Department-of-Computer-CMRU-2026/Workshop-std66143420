@@ -103,9 +103,10 @@ jobs:
         run: |
           APP_CONTAINER="${{ env.STUDENT_NAME }}-app"
           
-          # ติดตั้ง Node.js dependencies และ build Vite assets
-          docker exec $APP_CONTAINER npm install
-          docker exec $APP_CONTAINER npm run build
+          # แก้สิทธิ์ก่อน แล้วค่อย install และ build
+          docker exec -u root $APP_CONTAINER chown -R laravel:laravel /var/www
+          docker exec -u root $APP_CONTAINER npm install
+          docker exec -u root $APP_CONTAINER npm run build
           echo "✅ Frontend assets built successfully"
 
       - name: Laravel Post-Deploy
