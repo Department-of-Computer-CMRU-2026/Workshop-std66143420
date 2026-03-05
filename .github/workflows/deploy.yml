@@ -109,8 +109,7 @@ jobs:
 
           docker exec -u root $APP_CONTAINER chown -R www-data:www-data storage bootstrap/cache .env
           docker exec -u root $APP_CONTAINER chmod -R 775 storage bootstrap/cache
-          dock
-          er exec -u root $APP_CONTAINER chmod 664 .env
+          docker exec -u root $APP_CONTAINER chmod 664 .env
 
           docker exec $APP_CONTAINER php artisan config:clear
           docker exec $APP_CONTAINER php artisan key:generate --force
