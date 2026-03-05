@@ -1,8 +1,11 @@
 <?php
 
+use App\Livewire\WorkshopList;
+use App\Livewire\WorkshopRegistration;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', WorkshopList::class)->name('home');
+Route::get('/workshop/{workshop}/register', WorkshopRegistration::class)->name('workshop.register');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
