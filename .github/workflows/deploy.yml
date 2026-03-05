@@ -89,6 +89,15 @@ jobs:
           STUDENT_PORT=$(grep '^STUDENT_PORT=' .env.example | cut -d '=' -f2 | tr -d '\r ' || echo "80") \
           docker compose -p ${{ env.STUDENT_NAME }} up -d --build --force-recreate
 
+      - name: Build Frontend Assets
+        run: |
+          APP_CONTAINER="${{ env.STUDENT_NAME }}-app"
+          
+          # ติดตั้ง Node.js dependencies และ build Vite assets
+          docker exec $APP_CONTAINER npm install
+          docker exec $APP_CONTAINER npm run build
+          echo "✅ Frontend assets built successfully"
+
       - name: Laravel Post-Deploy
         run: |
           APP_CONTAINER="${{ env.STUDENT_NAME }}-app"
@@ -105,6 +114,7 @@ jobs:
           docker exec $APP_CONTAINER php artisan key:generate --force
           docker exec $APP_CONTAINER php artisan migrate --force
           docker exec $APP_CONTAINER php artisan storage:link || true
+          docker exec $APP_CONTAINER php artisan optimize:clear
           
       - name: System Cleanup
         run: |
