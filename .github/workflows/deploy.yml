@@ -98,8 +98,8 @@ jobs:
       - name: Build Frontend Assets
         run: |
           APP_CONTAINER="${{ env.STUDENT_NAME }}-app"
-          docker exec $APP_CONTAINER bun install
-          docker exec $APP_CONTAINER bun run build
+          docker exec -u root $APP_CONTAINER bun install
+          docker exec -u root $APP_CONTAINER bun run build
           echo "✅ Frontend assets built successfully"
 
       # ✅ Step 9: Laravel Post-Deploy
