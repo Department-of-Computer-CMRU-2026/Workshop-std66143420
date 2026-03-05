@@ -19,7 +19,7 @@ class Index extends Component
             'confirmText' => 'ใช่, ลบเลย',
             'cancelText' => 'ยกเลิก',
             'method' => 'executeDelete',
-            'params' => $id
+            'params' => [$id]
         ]]);
     }
 
