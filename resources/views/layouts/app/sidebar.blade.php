@@ -107,32 +107,62 @@
         <script>
             document.addEventListener('livewire:initialized', () => {
                 Livewire.on('swal:confirm', (data) => {
+                    let params = data;
+                    if (Array.isArray(params)) {
+                        while (Array.isArray(params) && params.length > 0) {
+                            params = params[0];
+                        }
+                    } else if (params && params.detail) {
+                        params = params.detail;
+                        while (Array.isArray(params) && params.length > 0) {
+                            params = params[0];
+                        }
+                    }
+
+                    const isDark = document.documentElement.classList.contains('dark');
                     Swal.fire({
-                        title: data[0].title,
-                        text: data[0].text,
-                        icon: data[0].icon || 'warning',
+                        title: params.title,
+                        text: params.text,
+                        icon: params.icon || 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3b82f6',
                         cancelButtonColor: '#ef4444',
-                        confirmButtonText: data[0].confirmText || 'ยืนยัน',
-                        cancelButtonText: data[0].cancelText || 'ยกเลิก',
-                        background: document.documentElement.classList.contains('dark') ? '#1e293b' : '#ffffff',
-                        color: document.documentElement.classList.contains('dark') ? '#f8fafc' : '#0f172a'
+                        confirmButtonText: params.confirmText || 'ยืนยัน',
+                        cancelButtonText: params.cancelText || 'ยกเลิก',
+                        background: isDark ? '#1e293b' : '#ffffff',
+                        color: isDark ? '#f8fafc' : '#0f172a'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            Livewire.dispatch(data[0].method, data[0].params || {});
+                            if (params.params !== undefined) {
+                                Livewire.dispatch(params.method, params.params);
+                            } else {
+                                Livewire.dispatch(params.method);
+                            }
                         }
                     });
                 });
 
                 Livewire.on('swal:alert', (data) => {
+                    let params = data;
+                    if (Array.isArray(params)) {
+                        while (Array.isArray(params) && params.length > 0) {
+                            params = params[0];
+                        }
+                    } else if (params && params.detail) {
+                        params = params.detail;
+                        while (Array.isArray(params) && params.length > 0) {
+                            params = params[0];
+                        }
+                    }
+
+                    const isDark = document.documentElement.classList.contains('dark');
                     Swal.fire({
-                        title: data[0].title,
-                        text: data[0].text,
-                        icon: data[0].icon || 'success',
+                        title: params.title,
+                        text: params.text,
+                        icon: params.icon || 'success',
                         confirmButtonText: 'ตกลง',
-                        background: document.documentElement.classList.contains('dark') ? '#1e293b' : '#ffffff',
-                        color: document.documentElement.classList.contains('dark') ? '#f8fafc' : '#0f172a'
+                        background: isDark ? '#1e293b' : '#ffffff',
+                        color: isDark ? '#f8fafc' : '#0f172a'
                     });
                 });
             });
