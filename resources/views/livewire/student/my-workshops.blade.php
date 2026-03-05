@@ -64,29 +64,7 @@
                     <div class="relative z-10 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
                         <flux:button href="{{ route('workshop.register', $registration->workshop) }}" variant="ghost" size="sm" icon="eye" wire:navigate class="text-slate-500 hover:text-blue-500">ดูรายละเอียด</flux:button>
                         
-                        <flux:modal.trigger :name="'cancel-modal-'.$registration->id">
-                            <flux:button variant="danger" size="sm" icon="trash">ยกเลิก</flux:button>
-                        </flux:modal.trigger>
-                        
-                        <flux:modal :name="'cancel-modal-'.$registration->id" class="min-w-[22rem]">
-                            <form wire:submit="cancelRegistration({{ $registration->id }})" class="space-y-6">
-                                <div>
-                                    <flux:heading size="lg">ยืนยันการยกเลิก</flux:heading>
-                                    <flux:subheading>
-                                        <p>คุณแน่ใจหรือไม่ว่าต้องการยกเลิกการลงทะเบียน <br><b class="text-slate-800 dark:text-slate-200">{{ $registration->workshop->title }}</b> ?</p>
-                                        <p class="text-rose-500 mt-2 text-sm">* หากยกเลิกแล้วคุณอาจเสียที่นั่งให้กับผู้อื่นที่สนใจ</p>
-                                    </flux:subheading>
-                                </div>
-
-                                <div class="flex space-x-2">
-                                    <flux:spacer />
-                                    <flux:modal.close>
-                                        <flux:button variant="ghost">ปิด</flux:button>
-                                    </flux:modal.close>
-                                    <flux:button type="submit" variant="danger" @click="$dispatch('modal-close')">ยืนยันยกเลิก</flux:button>
-                                </div>
-                            </form>
-                        </flux:modal>
+                        <flux:button wire:click="confirmCancel({{ $registration->id }})" variant="danger" size="sm" icon="trash">ยกเลิก</flux:button>
                     </div>
                 </flux:card>
             @endforeach

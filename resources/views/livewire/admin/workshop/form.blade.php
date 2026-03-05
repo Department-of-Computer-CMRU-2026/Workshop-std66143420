@@ -7,7 +7,7 @@
         </flux:header>
     </div>
 
-    <form wire:submit="save">
+    <form wire:submit.prevent="confirmSave">
         <flux:card>
             <div class="space-y-6">
                 <!-- ตอนที่ 1: ข้อมูลพื้นฐาน -->

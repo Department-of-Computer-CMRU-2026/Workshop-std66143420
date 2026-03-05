@@ -35,26 +35,8 @@
                 </div>
             </div>
 
-            @if($successMessage)
-                <div class="mb-8 p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-3xl text-emerald-400 flex items-center animate-bounce-short">
-                    <svg class="w-6 h-6 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <p class="font-bold">{{ $successMessage }}</p>
-                </div>
-            @endif
-
-            @if($errorMessage)
-                <div class="mb-8 p-6 bg-rose-500/10 border border-rose-500/20 rounded-3xl text-rose-400 flex items-center">
-                    <svg class="w-6 h-6 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <p class="font-bold">{{ $errorMessage }}</p>
-                </div>
-            @endif
-
             @auth
-            <form wire:submit="save" class="space-y-6">
+            <form wire:submit.prevent="confirmSave" class="space-y-6">
                 <!-- Data from user profile, read-only -->
                 <div class="space-y-2 opacity-70">
                     <label class="block text-sm font-bold text-slate-300 ml-1">รหัสนักศึกษา (อ้างอิงจากบัญชีผู้ใช้)</label>

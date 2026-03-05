@@ -100,5 +100,40 @@
         {{ $slot }}
 
         @fluxScripts
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener('livewire:initialized', () => {
+                Livewire.on('swal:confirm', (data) => {
+                    Swal.fire({
+                        title: data[0].title,
+                        text: data[0].text,
+                        icon: data[0].icon || 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3b82f6',
+                        cancelButtonColor: '#ef4444',
+                        confirmButtonText: data[0].confirmText || 'ยืนยัน',
+                        cancelButtonText: data[0].cancelText || 'ยกเลิก',
+                        background: document.documentElement.classList.contains('dark') ? '#1e293b' : '#ffffff',
+                        color: document.documentElement.classList.contains('dark') ? '#f8fafc' : '#0f172a'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Livewire.dispatch(data[0].method, data[0].params || {});
+                        }
+                    });
+                });
+
+                Livewire.on('swal:alert', (data) => {
+                    Swal.fire({
+                        title: data[0].title,
+                        text: data[0].text,
+                        icon: data[0].icon || 'success',
+                        confirmButtonText: 'ตกลง',
+                        background: document.documentElement.classList.contains('dark') ? '#1e293b' : '#ffffff',
+                        color: document.documentElement.classList.contains('dark') ? '#f8fafc' : '#0f172a'
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

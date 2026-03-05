@@ -46,6 +46,24 @@ class Form extends Component
         ];
     }
 
+    public function confirmSave()
+    {
+        $this->validate();
+
+        $action = $this->workshop && $this->workshop->exists ? 'แก้ไข' : 'เพิ่ม';
+        $title = $this->workshop && $this->workshop->exists ? 'ยืนยันการแก้ไขข้อมูล' : 'ยืนยันการเพิ่มเวิร์กชอปใหม่';
+
+        $this->dispatch('swal:confirm', [[
+            'title' => $title,
+            'text' => "คุณต้องการ{$action}ข้อมูลหัวข้อนี้ใช่หรือไม่?",
+            'icon' => 'question',
+            'confirmText' => "ใช่, {$action}ข้อมูล",
+            'cancelText' => 'ยกเลิก',
+            'method' => 'executeSave'
+        ]]);
+    }
+
+    #[\Livewire\Attributes\On('executeSave')]
     public function save()
     {
         $validatedData = $this->validate();
