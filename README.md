@@ -107,6 +107,15 @@ docker ps   # ดูสถานะ Container
 - หน้า Settings ใช้ **Card Layout + Glassmorphism** พร้อม Danger Zone สีแดง
 
 ---
-*พัฒนาเพื่อประกอบวิชา — Department of Computer Science, CMRU 2026*
-Zismaildev
+
+## 👨‍💻 ผู้พัฒนา (Developer)
+
+**Zismail (Zismaildev)** *Computer Science, Chiang Mai Rajabhat University*
+
+- **GitHub:** [@Zismaildev](https://github.com/Zismaildev)
+- **Portfolio:** [AureliaX Project](https://github.com/Zismaildev) 
+- **Skill Tree:** Full-stack Developer & Cybersecurity Enthusiast
+
+---
+*พัฒนาเพื่อประกอบการอบรม — Department of Computer Science, CMRU 2026*
 
